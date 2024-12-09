@@ -63,7 +63,7 @@ Open your XAMPP Control Panel and start Apache and MySQL.
 
 Run.
 
-  `git clone https://github.com/jennermaxim/doctor-appointment-system.git`
+  git clone https://github.com/jennermaxim/doctor-appointment-system.git
 
 Copy the source code folder and paste it into the XAMPP's "htdocs" directory.
 
