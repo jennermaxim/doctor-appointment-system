@@ -61,17 +61,19 @@ If you are Admin,doctor or patient ,only have one page to login :)
 
 Open your XAMPP Control Panel and start Apache and MySQL.
 
-Extract the downloaded source code zip file.
+Run.
 
-Copy the extracted source code folder and paste it into the XAMPP's "htdocs" directory.
+  `git clone https://github.com/jennermaxim/doctor-appointment-system.git`
+
+Copy the source code folder and paste it into the XAMPP's "htdocs" directory.
 
 Browse the PHPMyAdmin in a browser. i.e. http://localhost/phpmyadmin
 
 Create a new database naming edoc.
 
-Import the provided SQL file. The file is known as DATABASE edoc.sql located inside the source code root folder.
+Import the provided SQL file. The file is known as DATABASE edoc.sql located inside the database folder.
 
-Browse the Doctor's Appointment Systsem in a browser. i.e. http://localhost/edoc-echanneling-main/.
+Browse the Doctor's Appointment Systsem in a browser. i.e. http://localhost/doctor-appointment-system/.
 
 
 
@@ -90,19 +92,19 @@ DATABASE NAME: 'edoc'
 
 # BUILDIN USER ACCOUNTS OF THIS PROJECT
 
-ADMIN EMAIL:		admin@edoc.com
+ADMIN EMAIL:		admin@maxim.com
 
-ADMNIN PASSWORD:	123
-
-
-DOCTOR EMAIL:		doctor@edoc.com
-
-DOCTOR PASSWORD:	123
+ADMNIN PASSWORD:	123456
 
 
-PATIENT EMAIL:		patient@edoc.com
+DOCTOR EMAIL:		doctor@maxim.com
 
-PATIENT PASSWORD:	123
+DOCTOR PASSWORD:	123456
+
+
+PATIENT EMAIL:		patient@maxim.com
+
+PATIENT PASSWORD:	123456
 
 
 
@@ -118,10 +120,6 @@ PHP Version: 		7.3.5
 Server Software: 	Apache/2.4.39 (Win64) PHP/7.3.5
 
 MySQL Version: 		5.7.26
-
-Also available in sourcecodester.com : https://www.sourcecodester.com/hashenudara/simple-doctors-appointment-project.html
-
-Demo video: https://youtu.be/mAWHYAHmit4
 
 
 
