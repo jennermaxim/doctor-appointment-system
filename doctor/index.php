@@ -29,15 +29,10 @@
             animation: transitionIn-Y-over 0.5s;
         }
     </style>
-
-
 </head>
 
 <body>
     <?php
-
-    //learn from w3schools.com
-    
     session_start();
 
     if (isset($_SESSION["user"])) {
@@ -51,18 +46,13 @@
         header("location: ../login.php");
     }
 
-
     //import database
-    include ("../connection.php");
+    include("../connection.php");
     $userrow = $database->query("select * from doctor where docemail='$useremail'");
     $userfetch = $userrow->fetch_assoc();
     $userid = $userfetch["docid"];
     $username = $userfetch["docname"];
-
-
-    //echo $userid;
-    //echo $username;
-    
+    $profile = $userfetch["profile"];
     ?>
     <div class="container">
         <div class="menu">
@@ -72,7 +62,19 @@
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px">
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <?php
+                                    if ($profile) {
+                                        ?>
+                                        <img id="profile" src="<?php echo $profile; ?>" alt="" width="60px"
+                                            style="border-radius:50%; object-fit: cover; height: 60px">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <img id="profile" src="../img/user.png" alt="" width="100%"
+                                            style="border-radius:50%">
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username, 0, 13) ?>..</p>
@@ -163,8 +165,6 @@
                         $doctorrow = $database->query("select  * from  doctor;");
                         $appointmentrow = $database->query("select  * from  appointment where appodate>='$today';");
                         $schedulerow = $database->query("select  * from  schedule where scheduledate='$today';");
-
-
                         ?>
                     </p>
                 </td>
@@ -172,8 +172,6 @@
                     <button class="btn-label" style="display: flex;justify-content: center;align-items: center;"><img
                             src="../img/calendar.svg" width="100%"></button>
                 </td>
-
-
             </tr>
             <tr>
                 <td colspan="4">
@@ -282,47 +280,27 @@
                                 </tr>
                             </table>
                         </center>
-
-
-
-
-
-
-
-
                 </td>
                 <td>
-
-
-
                     <p id="anim" style="font-size: 20px;font-weight:600;padding-left: 40px;">Your Up Coming Sessions
                         until Next week</p>
                     <center>
                         <div class="abc scroll" style="height: 250px;padding: 0;margin: 0;">
                             <table width="85%" class="sub-table scrolldown" border="0">
                                 <thead>
-
                                     <tr>
                                         <th class="table-headin">
-
-
                                             Session Title
-
                                         </th>
-
                                         <th class="table-headin">
                                             Sheduled Date
                                         </th>
                                         <th class="table-headin">
-
                                             Time
-
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <?php
                                     $nextweek = date("Y-m-d", strtotime("+1 week"));
                                     $sqlmain = "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where schedule.scheduledate>='$today' and schedule.scheduledate<='$nextweek' order by schedule.scheduledate desc";
@@ -353,38 +331,26 @@
                                             $scheduledate = $row["scheduledate"];
                                             $scheduletime = $row["scheduletime"];
                                             $nop = $row["nop"];
-                                            echo '<tr>
-                                                        <td style="padding:20px;"> &nbsp;' .
-                                                substr($title, 0, 30)
-                                                . '</td>
-                                                        <td style="padding:20px;font-size:13px;">
-                                                        ' . substr($scheduledate, 0, 10) . '
-                                                        </td>
-                                                        <td style="text-align:center;">
-                                                            ' . substr($scheduletime, 0, 5) . '
-                                                        </td>
-
-                
-                                                       
-                                                    </tr>';
-
+                                            ?>
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                    &nbsp;<?php echo substr($title, 0, 30); ?>
+                                                </td>
+                                                <td style="padding:20px;font-size:13px;">
+                                                    <?php echo substr($scheduledate, 0, 10); ?>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <?php echo substr($scheduletime, 0, 5); ?>
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
                                     }
-
                                     ?>
-
                                 </tbody>
-
                             </table>
                         </div>
                     </center>
-
-
-
-
-
-
-
                 </td>
             </tr>
         </table>
@@ -393,8 +359,29 @@
             </table>
     </div>
     </div>
-
+    <div class="add-profile">
+        <div class="doctor-profile">
+            <form action="profile.php" enctype="multipart/form-data" method="post">
+                <div class="close" href="index.php">X</div>
+                <?php
+                if ($profile) {
+                    ?>
+                    <img src="<?php echo $profile; ?>" id="img" alt="Profile Picture">
+                    <?php
+                } else {
+                    ?>
+                    <img src="../img/user.png" id="img" alt="Profile Picture">
+                    <?php
+                }
+                ?>
+                <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                <input type="file" name="profile" id="inputFile" accept="image/*">
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+    </div>
 
 </body>
+<script src="../js/profile.js"></script>
 
 </html>

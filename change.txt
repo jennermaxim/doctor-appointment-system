@@ -1,0 +1,1 @@
+ALTER TABLE `doctor` ADD `profile` VARCHAR(255) NULL AFTER `specialties`; 

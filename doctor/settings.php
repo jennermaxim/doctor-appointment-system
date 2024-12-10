@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/admin.css">
-
-
-
     <title>Settings</title>
     <style>
         .dashbord-tables {
@@ -25,15 +22,10 @@
             animation: transitionIn-Y-bottom 0.5s;
         }
     </style>
-
-
 </head>
 
 <body>
     <?php
-
-    //learn from w3schools.com
-    
     session_start();
 
     if (isset($_SESSION["user"])) {
@@ -42,11 +34,9 @@
         } else {
             $useremail = $_SESSION["user"];
         }
-
     } else {
         header("location: ../login.php");
     }
-
 
     //import database
     include("../connection.php");
@@ -54,11 +44,7 @@
     $userfetch = $userrow->fetch_assoc();
     $userid = $userfetch["docid"];
     $username = $userfetch["docname"];
-
-
-    //echo $userid;
-    //echo $username;
-    
+    $profile = $userfetch["profile"];
     ?>
     <div class="container">
         <div class="menu">
@@ -68,7 +54,19 @@
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px">
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <?php
+                                    if ($profile) {
+                                        ?>
+                                        <img id="profile" src="<?php echo $profile; ?>" alt="" width="60px"
+                                            style="border-radius:50%; object-fit: cover; height: 60px">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <img id="profile" src="../img/user.png" alt="" width="100%"
+                                            style="border-radius:50%">
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username, 0, 13) ?>..</p>
@@ -310,95 +308,152 @@
             $spcil_name = $spcil_array["sname"];
             $nic = $row['docnic'];
             $tele = $row['doctel'];
-            echo '
+            $gender = $row['gender'];
+            $dob = $row['dob'];
+            $experience_years = $row['experience_years'];
+            $licence_number = $row['licence_number'];
+            $languages_spoken = $row['languages_spoken'];
+            ?>
             <div id="popup1" class="overlay">
-                    <div class="popup">
+                <div class="popup">
                     <center>
                         <h2></h2>
                         <a class="close" href="settings.php">&times;</a>
                         <div class="content">
                             eDoc Web App<br>
-                            
                         </div>
                         <div style="display: flex;justify-content: center;">
-                        <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
-                        
-                            <tr>
-                                <td>
-                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">View Details.</p><br><br>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                
-                                <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">Name: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    ' . $name . '<br><br>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="Email" class="form-label">Email: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                ' . $email . '<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">NIC: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                ' . $nic . '<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="Tele" class="form-label">Telephone: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                ' . $tele . '<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">Specialties: </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                            ' . $spcil_name . '<br><br>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="settings.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
-                                
-                                    
-                                </td>
-                
-                            </tr>
-                           
+                            <div class="abc">
+                                <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
+                                    <tr>
+                                        <td>
+                                            <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">
+                                                View
+                                                Details.</p><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="name" class="form-label">Name: </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $name; ?><br><br>
+                                        </td>
 
-                        </table>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="Email" class="form-label">Email: </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $email; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="nic" class="form-label">NIN: </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $nic; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="Tele" class="form-label">Telephone: </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $tele; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Specialties: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $spcil_name; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Gender: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $gender; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Date of Birth: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $dob; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Year of Experinece: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $experience_years; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Licence Number: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $licence_number; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <label for="spec" class="form-label">Languages Spoken: </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-td" colspan="2">
+                                            <?php echo $languages_spoken; ?><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="settings.php">
+                                                <input type="button" value="OK" class="login-btn btn-primary-soft btn">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </center>
                     <br><br>
+                </div>
             </div>
-            </div>
-            ';
+            <?php
         } elseif ($action == 'edit') {
             $sqlmain = "select * from doctor where docid='$id'";
             $result = $database->query($sqlmain);
@@ -412,6 +467,11 @@
             $spcil_name = $spcil_array["sname"];
             $nic = $row['docnic'];
             $tele = $row['doctel'];
+            $gender = $row['gender'];
+            $dob = $row['dob'];
+            $experience_years = $row['experience_years'];
+            $licence_number = $row['licence_number'];
+            $languages_spoken = $row['languages_spoken'];
 
             $error_1 = $_GET["error"];
             $errorlist = array(
@@ -424,172 +484,259 @@
             );
 
             if ($error_1 != '4') {
-                echo '
-                    <div id="popup1" class="overlay">
-                            <div class="popup">
-                            <center>
-                            
-                                <a class="close" href="settings.php">&times;</a> 
-                                <div style="display: flex;justify-content: center;">
-                                <div class="abc">
-                                <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
-                                <tr>
-                                        <td class="label-td" colspan="2">' .
-                    $errorlist[$error_1]
-                    . '</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">Edit Doctor Details.</p>
-                                        Doctor ID : ' . $id . ' (Auto Generated)<br><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <form action="edit-doc.php" method="POST" class="add-new-form">
-                                            <label for="Email" class="form-label">Email: </label>
-                                            <input type="hidden" value="' . $id . '" name="id00">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                        <input type="hidden" name="oldemail" value="' . $email . '" >
-                                        <input type="email" name="email" class="input-text" placeholder="Email Address" value="' . $email . '" required><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        
-                                        <td class="label-td" colspan="2">
-                                            <label for="name" class="form-label">Name: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <input type="text" name="name" class="input-text" placeholder="Doctor Name" value="' . $name . '" required><br>
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="nic" class="form-label">NIC: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <input type="text" name="nic" class="input-text" placeholder="NIC Number" value="' . $nic . '" required><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="Tele" class="form-label">Telephone: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <input type="tel" name="Tele" class="input-text" placeholder="Telephone Number" value="' . $tele . '" required><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="spec" class="form-label">Choose specialties: (Current' . $spcil_name . ')</label>
-                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <select name="spec" id="" class="box">';
-
-
-                $list11 = $database->query("select  * from  specialties;");
-
-                for ($y = 0; $y < $list11->num_rows; $y++) {
-                    $row00 = $list11->fetch_assoc();
-                    $sn = $row00["sname"];
-                    $id00 = $row00["id"];
-                    echo "<option value=" . $id00 . ">$sn</option><br/>";
-                }
-                ;
-
-
-
-
-                echo '       </select><br><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="password" class="form-label">Password: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <input type="password" name="password" class="input-text" placeholder="Defind a Password" required><br>
-                                        </td>
-                                    </tr><tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="cpassword" class="form-label">Conform Password: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <input type="password" name="cpassword" class="input-text" placeholder="Conform Password" required><br>
-                                        </td>
-                                    </tr>
-                                    
-                        
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="reset" value="Reset" class="login-btn btn-primary-soft btn" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        
-                                            <input type="submit" value="Save" class="login-btn btn-primary btn">
-                                        </td>
-                        
-                                    </tr>
-                                
-                                    </form>
-                                    </tr>
-                                </table>
-                                </div>
-                                </div>
-                            </center>
-                            <br><br>
-                    </div>
-                    </div>
-                    ';
-            } else {
-                echo '
+                ?>
                 <div id="popup1" class="overlay">
-                        <div class="popup">
+                    <div class="popup">
                         <center>
-                        <br><br><br><br>
+                            <a class="close" href="settings.php">&times;</a>
+                            <div style="display: flex;justify-content: center;">
+                                <div class="abc">
+                                    <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <?php echo $errorlist[$error_1]; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">
+                                                    Edit Doctor Details.</p>
+                                                Doctor ID : <?php echo $id; ?> (Auto Generated)<br><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <form action="edit-doc.php" method="POST" class="add-new-form">
+                                                    <label for="Email" class="form-label">Email: </label>
+                                                    <input type="hidden" value="<?php echo $id; ?>" name="id00">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="hidden" name="oldemail" value="<?php echo $email; ?>">
+                                                <input type="email" name="email" class="input-text" placeholder="Email Address"
+                                                    value="<?php echo $email; ?>" required><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td class="label-td" colspan="2">
+                                                <label for="name" class="form-label">Name: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="text" name="name" class="input-text" placeholder="Doctor Name"
+                                                    value="<?php echo $name; ?>" required><br>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="nic" class="form-label">NIN: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="text" name="nic" class="input-text" placeholder="NIN Number"
+                                                    value="<?php echo $nic; ?>" required><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="Tele" class="form-label">Telephone: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="tel" name="Tele" class="input-text" placeholder="Telephone Number"
+                                                    value="<?php echo $tele; ?>" required><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="spec" class="form-label">Choose specialties: (Current
+                                                    <?php echo $spcil_name; ?>)</label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <select name="spec" id="" class="box">';
+                                                    <?php
+
+                                                    $list11 = $database->query("select  * from  specialties;");
+
+                                                    for ($y = 0; $y < $list11->num_rows; $y++) {
+                                                        $row00 = $list11->fetch_assoc();
+                                                        $sn = $row00["sname"];
+                                                        $id00 = $row00["id"];
+                                                        echo "<option value=" . $id00 . ">$sn</option><br/>";
+                                                    }
+                                                    ?>
+                                                </select><br><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="gender" class="form-label">Gender: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <select name="gender" id="" class="box">
+                                                    <option value="<?php echo $gender; ?>"> <?php echo $gender; ?></option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="dob" class="form-label">Date of Birth: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="date" name="dob" value="<?php echo $dob; ?>" class="input-text"><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="experience_years" class="form-label">Years of Experinece: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="number" name="experience_years"
+                                                    value="<?php echo $experience_years; ?>" class="input-text"
+                                                    placeholder="Enter Years of Experinece"><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="licence_number" class="form-label">Licence Number: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="text" name="licence_number" value="<?php echo $licence_number; ?>"
+                                                    class="input-text" placeholder="Enter Licence Number"><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="languages_spoken" class="form-label">Languages Spoken: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="text" name="languages_spoken" value="<?php echo $languages_spoken; ?>"
+                                                    class="input-text" placeholder="Enter Languages Spoken"><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="password" class="form-label">Password: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="password" name="password" class="input-text"
+                                                    placeholder="Defind a Password" required><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <label for="cpassword" class="form-label">Conform Password: </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-td" colspan="2">
+                                                <input type="password" name="cpassword" class="input-text"
+                                                    placeholder="Conform Password" required><br>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <input type="reset" value="Reset"
+                                                    class="login-btn btn-primary-soft btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                <input type="submit" value="Save" class="login-btn btn-primary btn">
+                                            </td>
+
+                                        </tr>
+
+                                        </form>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </center>
+                        <br><br>
+                    </div>
+                </div>
+                ';
+                <?php
+            } else {
+                ?>
+                <div id="popup1" class="overlay">
+                    <div class="popup">
+                        <center>
+                            <br><br><br><br>
                             <h2>Edit Successfully!</h2>
                             <a class="close" href="settings.php">&times;</a>
                             <div class="content">
                                 If You change your email also Please logout and login again with your new email
-                                
                             </div>
                             <div style="display: flex;justify-content: center;">
-                            
-                            <a href="settings.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;OK&nbsp;&nbsp;</font></button></a>
-                            <a href="../logout.php" class="non-style-link"><button  class="btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;Log out&nbsp;&nbsp;</font></button></a>
-
+                                <a href="settings.php" class="non-style-link">
+                                    <button class="btn-primary btn"
+                                        style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;">
+                                        <font class="tn-in-text">&nbsp;&nbsp;OK&nbsp;&nbsp;</font>
+                                    </button>
+                                </a>
+                                <a href="../logout.php" class="non-style-link">
+                                    <button class="btn-primary-soft btn"
+                                        style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;">
+                                        <font class="tn-in-text">&nbsp;&nbsp;Log out&nbsp;&nbsp;</font>
+                                    </button>
+                                </a>
                             </div>
                             <br><br>
                         </center>
+                    </div>
                 </div>
-                </div>
-    ';
-
-
-
+                <?php
             }
-            ;
         }
-
     }
     ?>
-
+    <div class="add-profile">
+        <div class="doctor-profile">
+            <form action="profile.php" enctype="multipart/form-data" method="post">
+                <div class="close" href="index.php">X</div>
+                <?php
+                if ($profile) {
+                    ?>
+                    <img src="<?php echo $profile; ?>" id="img" alt="Profile Picture">
+                    <?php
+                } else {
+                    ?>
+                    <img src="../img/user.png" id="img" alt="Profile Picture">
+                    <?php
+                }
+                ?>
+                <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                <input type="file" name="profile" id="inputFile" accept="image/*">
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+    </div>
 </body>
+<script src="../js/profile.js"></script>
 
 </html>

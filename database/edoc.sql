@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2024 at 01:59 PM
+-- Generation Time: Dec 10, 2024 at 01:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,16 +75,22 @@ CREATE TABLE `doctor` (
   `docpassword` varchar(255) DEFAULT NULL,
   `docnic` varchar(15) DEFAULT NULL,
   `doctel` varchar(15) DEFAULT NULL,
-  `specialties` int(2) DEFAULT NULL
+  `specialties` int(2) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `experience_years` int(11) DEFAULT NULL,
+  `licence_number` varchar(100) DEFAULT NULL,
+  `languages_spoken` varchar(255) DEFAULT NULL,
+  `profile` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`docid`, `docemail`, `docname`, `docpassword`, `docnic`, `doctel`, `specialties`) VALUES
-(1, 'doctor@maxim.com', 'Dr. Maxim', '123456', '56254662', '0740639860', 42),
-(2, 'doctor@maxim.tech', 'Dr. Jenner', '123456', '729392', '0740639860', 13);
+INSERT INTO `doctor` (`docid`, `docemail`, `docname`, `docpassword`, `docnic`, `doctel`, `specialties`, `gender`, `dob`, `experience_years`, `licence_number`, `languages_spoken`, `profile`) VALUES
+(1, 'doctor@maxim.com', 'Dr. Maxim', '123456', '56254662', '0740639860', 1, 'Male', '2024-12-10', 5, 'SFF534', 'English, French', 'profile/1.jpg'),
+(2, 'doctor@maxim.tech', 'Dr. Jenner', '123456', '729392', '0740639860', 13, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
